@@ -61,6 +61,30 @@ class BST {
             }
     }
 
+    preOrder(root) {
+        if(root) {
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
+        }
+    }
+
+    inOrder(root) {
+        if(root) {
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
+
+    postOrder(root) {
+        if(root) {
+           this.postOrder(root.left)
+           this.postOrder(root.right)
+           console.log(root.value)
+        }
+    }
+
     }
 
 const bst1 = new BST()
@@ -74,3 +98,7 @@ bst1.insert(5)
 console.log(bst1.search(bst1.root, 20))
 console.log(bst1.search(bst1.root, 10))
 console.log(bst1.search(bst1.root, 50))
+
+bst1.preOrder(bst1.root)
+bst1.inOrder(bst1.root)
+bst1.postOrder(bst1.root)
