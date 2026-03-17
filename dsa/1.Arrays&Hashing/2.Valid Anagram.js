@@ -7,7 +7,7 @@ const s2 = "abdul"
 const t2 = "munar"
 
 // Hash Map
-// Time complexity: O(n + m) (where n and m are lengths of strings s and t)
+// Time complexity: O(n + m) (iterating through both strings where n and m are lengths)
 // Space complexity: O(1) (since map size is capped at 26 characters)
 function isAnagram1(s, t) {
         if (s.length !== t.length) return false
@@ -27,8 +27,8 @@ function isAnagram1(s, t) {
     }
 
 // Sorting
-// Time complexity: O(n log n + m log m)
-// Space complexity: O(n + m) (for the split arrays)
+// Time complexity: O(n log n + m log m) (sorting both strings dominates)
+// Space complexity: O(n + m) (creating arrays for splitting strings)
 function isAnagram2(s, t) {
     if (s.length !== t.length) return false
         const sortedS = s.split('').sort().join()
@@ -37,8 +37,8 @@ function isAnagram2(s, t) {
 }
 
 // Hash Table (Using Array)
-// Time complexity: O(n + m)
-// Space complexity: O(1) (array size is fixed at 26)
+// Time complexity: O(n + m) (iterating through the strings)
+// Space complexity: O(1) (array size is fixed at 26 characters)
 function isAnagram3(s, t) {
         if (s.length !== t.length) return false
         let arr = new Array(26).fill(0)

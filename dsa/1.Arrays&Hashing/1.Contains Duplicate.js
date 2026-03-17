@@ -2,8 +2,8 @@ const nums1 = [1, 2, 3, 4]
 const nums2 = [1, 2, 3, 3]
 
 // Brute Force
-// Time complexity: O(n^2)
-// Space complexity: O(1)
+// Time complexity: O(n^2) (nested loops comparing each element)
+// Space complexity: O(1) (no extra memory required)
 function hasDuplicate1(nums) {
     let hasDuplicate = false
         const len = nums.length
@@ -22,8 +22,8 @@ function hasDuplicate1(nums) {
 }
 
 // Sorting
-// Time complexity: O(n log n)
-// Space complexity: O(1) or O(n) depending on the sorting algorithm
+// Time complexity: O(n log n) (sorting the array)
+// Space complexity: O(1) or O(n) (depending on the sorting algorithm)
 function hasDuplicate2(nums) {
         const sortedArr = nums.sort((a, b) => a - b)
         const length = sortedArr.length
@@ -36,8 +36,8 @@ function hasDuplicate2(nums) {
     }
 
 // Hash Map
-// Time complexity: O(n)
-// Space complexity: O(n)
+// Time complexity: O(n) (single pass through array)
+// Space complexity: O(n) (up to n elements stored in map)
 function hasDuplicate3(nums) {
         let map = new Map()
         const len = nums.length
@@ -51,15 +51,15 @@ function hasDuplicate3(nums) {
     }
 
 // Hash Set Length
-// Time complexity: O(n)
-// Space complexity: O(n)
+// Time complexity: O(n) (creating Set takes O(n) time)
+// Space complexity: O(n) (Set stores up to n elements)
 function hasDuplicate4(nums) {
         return new Set(nums).size < nums.length
     }
 
 // Hash Set  
-// Time complexity: O(n)
-// Space complexity: O(n)
+// Time complexity: O(n) (single pass through array)
+// Space complexity: O(n) (Set stores up to n elements)
 function hasDuplicate5(nums) {
         let seen = new Set()
         for(const num of nums) {

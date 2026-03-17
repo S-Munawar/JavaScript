@@ -5,8 +5,8 @@ const nums2 = [2, 4, 6, 8]
 const target2 = 10
 
 // Brute Force
-// Time complexity: O(n^2)
-// Space complexity: O(1)
+// Time complexity: O(n^2) (nested loops iterate over the array)
+// Space complexity: O(1) (no extra memory used)
 function twoSum1(nums, target) {
         const length = nums.length
 
@@ -20,8 +20,8 @@ function twoSum1(nums, target) {
     }
 
 // Hash Map (One Pass)
-// Time complexity: O(n)
-// Space complexity: O(n)
+// Time complexity: O(n) (single pass through the array)
+// Space complexity: O(n) (stores up to n elements in the map)
 function twoSum2(nums, target) {
         let map = new Map()
 
@@ -36,8 +36,8 @@ function twoSum2(nums, target) {
     }
 
 // Hash Map (Two Pass)
-// Time complexity: O(n)
-// Space complexity: O(n)
+// Time complexity: O(n) (two passes over the array)
+// Space complexity: O(n) (stores up to n elements in the map)
 function twoSum3(nums, target) {
         let map = new Map()
         for(let i = 0; i < nums.length; i++) {
@@ -54,8 +54,8 @@ function twoSum3(nums, target) {
     }
 
 // Sorting
-// Time complexity: O(n log n)
-// Space complexity: O(n)
+// Time complexity: O(n log n) (sorting step dominates the time)
+// Space complexity: O(n) (extra array created for original indices)
 function twoSum4(nums, target) {
         let arr = []
         for(let i = 0; i < nums.length; i++) {
