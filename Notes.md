@@ -1,0 +1,1 @@
+In JavaScript, .sort() compares strings by default(lexicographically/dictionary order), so you almost always need a compare function for numbers.
