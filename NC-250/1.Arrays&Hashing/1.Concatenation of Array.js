@@ -14,12 +14,12 @@ const nums2 = [22,21,20,1]
 // Time complexity: O(n) where n is the length of array nums (iterates through array exactly once)
 // Space complexity: O(n) where n is the length of array nums (creates array of size 2n)
 function getConcatenation2(nums) {
-    let arr = []
-    const len = nums.length
-    for (let i = 0; i < len; i++) {
-        arr[i] = arr[i + len] = nums[i]
+    let n = nums.length;
+    let ans = new Array(2 * n);
+    for (let i = 0; i < n; i++) {
+        ans[i] = ans[i + n] = nums[i];
     }
-    return arr
+    return ans;
 }
 
 // Iteration (Two Pass)

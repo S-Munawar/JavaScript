@@ -5,18 +5,15 @@
  * You may return the answer in any order.
  */
 
-const nums1 = [1,1,1,2,2,3]
-const k1 = 2
-
-const nums2 = [1]
-const k2 = 1
+const nums1 = [1,1,1,2,2,3], k1 = 2
+const nums2 = [1], k2 = 1
 
 // Bucket Sort
-// Time complexity: O(n) where n is the length of array nums (counting frequencies and bucketing takes O(n))
-// Space complexity: O(n) where n is the length of array nums (hash map and frequency array take up to O(n) space)
-function topKFrequent(nums, k) {
+// Time complexity: O(n) where n is the length of array nums
+// Space complexity: O(n) where n is the length of array nums
+function topKFrequent1(nums, k) {
     const count = {};
-    const freq = new Array(nums.length + 1).fill(null).map(() => [])
+    const freq = Array.from({ length: nums.length + 1 }, () => []);
 
     for (const n of nums) {
         count[n] = (count[n] || 0) + 1;
@@ -36,49 +33,57 @@ function topKFrequent(nums, k) {
     }
 }
 
-// Hash Map & Sorting
-// Time complexity: O(n log n) where n is the length of array nums (counting is O(n), sorting takes up to O(n log n))
-// Space complexity: O(n) where n is the length of array nums (hash map stores up to n unique elements)
+// Min-Heap
+// Time complexity: O(n log k) where n is the length of array nums
+// Space complexity: O(n + k) where n is the array length and k is the target frequency threshold
 function topKFrequent2(nums, k) {
-    let count = {}
-
-    for(const num of nums) {
-        count[num] = (count[num] | 0) + 1
+    const count = {};
+    for (const num of nums) {
+        count[num] = (count[num] || 0) + 1;
     }
-    const sortedArr = Object.keys(count).sort((a, b) => count[b] - count[a])
-    return sortedArr.slice(0, k).map(Number)
+
+    // Note: MinPriorityQueue is globally provided in LeetCode via @datastructures-js
+    const heap = new MinPriorityQueue((x) => x[1]);
+    for (const [num, cnt] of Object.entries(count)) {
+        heap.enqueue([num, cnt]);
+        if (heap.size() > k) heap.dequeue();
+    }
+
+    const res = [];
+    for (let i = 0; i < k; i++) {
+        const [num, cnt] = heap.dequeue();
+        res.push(num);
+    }
+    return res;
 }
 
-// Brute Force Counting
-// Time complexity: O(n^2) where n is the length of array nums (nested loops to count frequencies)
-// Space complexity: O(n) where n is the length of array nums (hash map to store counts)
-function topKFrequent1(nums, k) {
-    let res = {}
-    for(let i = 0; i < nums.length; i++) {
-        res[nums[i]] = (res[nums[i]] | 0)
-        for(let j = 1; j < nums.length; j++) {
-            if(nums[i] == nums[j]) {
-                res[nums[i]]++
-            }
-        }
+// Sorting
+// Time complexity: O(n log n) where n is the length of array nums
+// Space complexity: O(n) where n is the length of array nums
+function topKFrequent3(nums, k) {
+    const count = {};
+    for (const num of nums) {
+        count[num] = (count[num] || 0) + 1;
     }
-    const keys = Object.keys(res).sort((a, b) => res[b] - res[a])
-    let Output = []
-    for(let i = 0; i < k; i++){
-        Output.push(Number(keys[i]))
-    }
-    return Output
+
+    const arr = Object.entries(count).map(([num, freq]) => [
+        freq,
+        parseInt(num),
+    ]);
+    arr.sort((a, b) => b[0] - a[0]);
+
+    return arr.slice(0, k).map((pair) => pair[1]);
 }
 
 console.log("Bucket Sort:")
-console.log(topKFrequent(nums1, k1))
-console.log(topKFrequent(nums2, k2))
+console.log(topKFrequent1([...nums1], k1))
+console.log(topKFrequent1([...nums2], k2))
 
-console.log("\nHash Map & Sorting:")
-console.log(topKFrequent2(nums1, k1))
-console.log(topKFrequent2(nums2, k2))
+// execution commented out locally to prevent `ReferenceError: MinPriorityQueue is not defined`
+// console.log("\nMin-Heap:")
+// console.log(topKFrequent2([...nums1], k1))
+// console.log(topKFrequent2([...nums2], k2))
 
-console.log("\nBrute Force:")
-console.log(topKFrequent1(nums1, k1))
-console.log(topKFrequent1(nums2, k2))
-
+console.log("\nSorting:")
+console.log(topKFrequent3([...nums1], k1))
+console.log(topKFrequent3([...nums2], k2))
